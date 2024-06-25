@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.0'
+    id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(22)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//common libraries
+    implementation 'org.springframework.boot:spring-boot-starter-quartz'
+    implementation 'org.quartz-scheduler:quartz'
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.modelmapper:modelmapper:3.1.0'
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '3.3.0'
+//Security libraries
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.12.5'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.12.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.12.5'
+//    DATABASE libraries
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation group: 'redis.clients', name: 'jedis', version: '5.2.0-beta4'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.3'
+//    API DOCUMENT Libraries
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.5.0'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+
+}
+task printActiveProfiles {
+    doLast {
+        println "Active profiles: ${System.getProperty('spring.profiles.active')}"
+    }
+}
+

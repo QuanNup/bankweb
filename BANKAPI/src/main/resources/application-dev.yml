@@ -1,0 +1,52 @@
+server:
+  port: 8031
+
+spring:
+  application:
+    name: BANKAPI
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/bank
+    username: root
+    password: Hiep31082003
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+  config:
+    import: optional:file:.env[.properties]
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        security.web:
+          FilterChainProxy: DEBUG
+          access:
+            ExceptionTranslationFilter: DEBUG
+            intercept:
+              FilterSecurityInterceptor: DEBUG
+          authentication:
+            UsernamePasswordAuthenticationFilter: DEBUG
+          firewall: DEBUG
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+openapi:
+    title: Bank API Document
+    version: 2.0
+    description : Bank API Service
+    serverURL :
+    serverName : serverTest
