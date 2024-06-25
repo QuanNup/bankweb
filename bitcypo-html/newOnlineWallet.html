@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Online Wallet</title>
+    <link rel="stylesheet" href="./Login_v1/css/newOnlineWallet.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Kiểm tra sự tồn tại của token trong sessionStorage
+            const token = sessionStorage.getItem('token');
+            if (!token) {
+                // Nếu token không tồn tại, chuyển hướng đến trang login.html
+                window.location.href = 'http://127.0.0.1:5500/Login_v1/login.html?status=warning';
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Online Wallet</h1>
+        <form id="walletForm">
+            <div class="form-group">
+                <label for="accountNumber">Account Number:</label>
+                <input type="text" id="accountNumber" readonly>
+                <button type="button" id="generateAccountNumber">Generate</button>
+            </div>
+            <div class="form-group">
+                <label for="accountHolderName">Account Holder Name:</label>
+                <input type="text" id="accountHolderName" required>
+            </div>
+            <div class="form-group">
+                <label for="accountType">Account Type:</label>
+                <select id="accountType" required>
+                    <option value="Checking">Checking</option>
+                    <option value="Saving">Saving</option>
+                </select>
+            </div>
+            <button type="submit">Create Account</button>
+        </form>
+    </div>
+    <div class="card">
+        <div class="card-background"></div>
+        <div class="card-details">
+            <div class="card-info">
+                <p class="card-number" id="cardAccountNumber">ACC0001</p>
+                <p class="card-date"><span id="cardAccountDate">Member Since:</span></p>
+                <p class="card-holder" id="cardAccountHolderName">Your Name</p>
+                <p class="card-type"><span id="cardAccountType">Checking</span></p>
+            </div>
+        </div>
+    </div>
+    <script src="./Login_v1/js/newOnlineWallet.js"></script>
+</body>
+</html>

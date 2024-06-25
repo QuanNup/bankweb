@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Online Wallet</title>
+    <link rel="stylesheet" href="./Login_v1/css/newOnlineWallet.css">
+    <style>
+      
+        .centered {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .centered label {
+            margin-right: 10px;
+        }
+
+        .centered input, .centered select {
+            flex: 1;
+        }
+        .button-container {
+            position: relative;
+            display: inline-block;
+        }
+        #buttonOverlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            cursor: not-allowed; /* Đổi con trỏ chuột khi nút bị disable */
+            display: none; /* Ẩn overlay ban đầu */
+        }
+       
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Kiểm tra sự tồn tại của token trong sessionStorage
+            const token = sessionStorage.getItem('token');
+            if (!token) {
+                // Nếu token không tồn tại, chuyển hướng đến trang login.html
+                window.location.href = 'http://127.0.0.1:5500/Login_v1/login.html?status=warning';
+            }
+        });
+    </script>
+</head>
+<body>
+   
+    <h2>Accounts</h2>
+    <div id="success-alert-background" class="alert-background">
+        <div id="success-alert-container" class="alert-container col-sm-12">
+            <div class="alert fade alert-simple alert-success alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show"> 
+              <i class="start-icon far fa-check-circle faa-tada animated"></i>
+              <strong class="font__weight-semibold">Congratulation!</strong> Your transaction successful
+            </div>
+        </div>
+    </div>
+    <div id="error-alert-background" class="alert-background">
+        <div id="error-alert-container" class="alert-container col-sm-12">
+            <div class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show" role="alert" data-brk-library="component__alert">
+              <i class="start-icon far fa-times-circle faa-pulse animated"></i>
+              <strong class="font__weight-semibold">Error!</strong> Insufficient balance for this transaction!
+            </div>
+          </div>
+    </div>
+    <div id="warning-alert-background" class="alert-background">
+        <div id="error-alert-container" class="alert-container col-sm-12">
+        <div class="alert fade alert-simple alert-warning alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show" role="alert" data-brk-library="component__alert">
+          <i class="start-icon fa fa-exclamation-triangle faa-flash animated"></i>
+          <strong class="font__weight-semibold">Warning!</strong> Please wait for 10s to have next transaction
+        </div>
+      </div>
+    </div>
+    <div id="accountSelectorContainer">
+        <label for="accountSelector">Select Account:</label>
+        <select id="accountSelector">
+            <option value="">-- Select Account --</option>
+            <!-- Options will be dynamically added here -->
+        </select>
+    </div>
+    <div id="accountDetails">
+        <table id="accountsTable">
+            <thead>
+                <tr>
+                    <th>Account Number</th>
+                    <th>Account Holder Name</th>
+                    <th>Account Type</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>          <!-- Account details will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+    <div class="card">
+        <div class="card-background"></div>
+        <div class="card-details">
+            <div class="card-info">
+                <p class="card-number" id="cardAccountNumber">ACC0001</p>
+                <p class="card-date"><span id="cardAccountDate">Member Since:</span></p>
+                <p class="card-holder" id="cardAccountHolderName">Your Name</p>
+                <p class="card-type"><span id="cardAccountType">Checking</span></p>
+            </div>
+        </div>
+    </div>
+    <div id="transactionTypeContainer" class="centered">
+        <label for="transactionTypeSelector">Select Transaction Type:</label>
+        <select id="transactionTypeSelector">
+            <option value="">-- Select Transaction Type --</option>
+            <option value="deposit">Deposit</option>
+            <option value="withdrawal">Withdrawal</option>
+            <option value="transfer">Transfer</option>
+        </select>
+    </div>
+
+    <!-- Amount Field -->
+    <div id="amountContainer" class="centered" style="display: none;">
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" min="0">
+    </div>
+
+    <!-- Transfer Fields -->
+    <div id="transferContainer" class="centered" style="display: none;">
+        <label for="transferAccount">Transfer To Account:</label>
+        <input type="text" id="transferAccount" oninput="formatAccountNumber(this)">
+    </div>
+
+    <div id="accountTransferDetails">
+        <table id="accountsTable">
+            <thead>
+                <tr>
+                    <th>Account Number</th>
+                    <th>Account Holder Name</th>
+                    <th>Account Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Account details will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+    <div class="centered button-container">
+        <button  class="button" id="executeButton" onclick="executeTransaction()">Execute Transaction</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.30.0/esm/index.min.js"></script>
+    <script  src="./Login_v1/js/Transfer.js">
+     
+    </script>
+    
+</body>
+</html>

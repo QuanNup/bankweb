@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <button onclick="sendData()">Get Data</button>
+    <div id="data"></div>
+
+    <script>
+         function sendData() {
+                var user = {
+					userName : "Hiep",
+					password : "asd",
+				}
+				axios.post('http://localhost:8080/Login', user)
+                .then(function (response) {
+                    console.log(response.data);
+                    alert('Data sent successfully!');
+                })
+                .catch(function (error) {
+                    console.error(error);
+                    alert('Failed to send data.');
+                });
+        }
+        function fetchData() {
+            axios.get('http://localhost:8080/')
+                .then(response => {
+                    document.getElementById('data').innerText = response.data;
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+    </script>
+</body>
+</html>

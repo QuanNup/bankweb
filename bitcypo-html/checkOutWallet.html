@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Online Wallet</title>
+    <link rel="stylesheet" href="./Login_v1/css/newOnlineWallet.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Kiểm tra sự tồn tại của token trong sessionStorage
+            const token = sessionStorage.getItem('token');
+            if (!token) {
+                // Nếu token không tồn tại, chuyển hướng đến trang login.html
+                window.location.href = 'http://127.0.0.1:5500/Login_v1/login.html?status=warning';
+            }
+        });
+    </script>
+</head>
+<body>
+    
+    <h2>Accounts</h2>
+    <div id="accountSelectorContainer">
+        <label for="accountSelector">Select Account:</label>
+        <select id="accountSelector">
+            <option value="">-- Select Account --</option>
+            <!-- Options will be dynamically added here -->
+        </select>
+    </div>
+    <div id="accountDetails">
+        <table id="accountsTable">
+            <thead>
+                <tr>
+                    <th>Account Number</th>
+                    <th>Account Holder Name</th>
+                    <th>Account Type</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>          <!-- Account details will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+    <div class="card">
+        <div class="card-background"></div>
+        <div class="card-details">
+            <div class="card-info">
+                <p class="card-number" id="cardAccountNumber">ACC0001</p>
+                <p class="card-date"><span id="cardAccountDate">Member Since:</span></p>
+                <p class="card-holder" id="cardAccountHolderName">Your Name</p>
+                <p class="card-type"><span id="cardAccountType">Checking</span></p>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.30.0/esm/index.min.js"></script>
+    <script  src="./Login_v1/js/checkoutOnlineWallet.js">
+       
+    </script>
+    
+</body>
+</html>
